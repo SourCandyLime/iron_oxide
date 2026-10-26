@@ -1,12 +1,12 @@
 use crate::{math::{Vec2, Vec3, Quat}};
 
-pub struct Camera {
+pub struct Camera3D {
     pub position: Vec3,
     pub rotation: Quat,
     pub fov: f32,
 }
 
-impl Camera {
+impl Camera3D {
     pub fn new(
         position: Vec3,
         rotation: Quat,
@@ -16,14 +16,6 @@ impl Camera {
             position,
             rotation,
             fov,
-        }
-    }
-    
-    pub fn NEW() -> Self {
-        Self {
-            position: Vec3::ZERO,
-            rotation: Quat::IDENTITY,
-            fov: 70.0
         }
     }
 
@@ -68,4 +60,14 @@ impl Camera {
             .rotate_vec3(relative)
     }
 
+}
+
+impl Default for Camera3D {
+    fn default() -> Self {
+        Self {
+            position: Vec3::ZERO,
+            rotation: Quat::IDENTITY,
+            fov: 70.0
+        }
+    }
 }

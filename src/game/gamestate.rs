@@ -5,6 +5,7 @@ pub enum StateAction<Ctx: GameContext> {
     Pop,
     Push(Box<dyn GameState<Ctx>>),
     Replace(Box<dyn GameState<Ctx>>),
+    Exit,
 }
 
 pub trait GameState<Ctx: GameContext> {

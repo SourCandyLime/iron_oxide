@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub trait Widget {
-    fn new(x: i32, y: i32, width: u32, height: u32, text: String, id: String) -> Self
+    fn new(x: i32, y: i32, width: u32, height: u32, text: String, id: String, colors: &[u8]) -> Self
     where Self: Sized;
 
     fn id(&self) -> &String;

@@ -4,7 +4,7 @@ use crate::{
 };
 
 use super::{
-    Camera,
+    Camera3D,
     Mesh,
     Texture,
 };
@@ -40,7 +40,7 @@ impl Model {
 
     pub fn render(
         &self,
-        camera: &Camera,
+        camera: &Camera3D,
         canvas: &mut Canvas,
         screen_width: u32,
         screen_height: u32,

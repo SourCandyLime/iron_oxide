@@ -1,5 +1,5 @@
-use super::{AppConfig, AppIcon, BootScreen, BootState, window::AppWindow};
-use crate::{game::Game, input::Input, time::Time};
+use super::{window::AppWindow, AppConfig, AppIcon, BootScreen, BootState, CrtFrame};
+use crate::{game::Game, input::Input, time::Time, CrtConfig, GameAction};
 use std::path::Path;
 use winit::event_loop::EventLoop;
 
@@ -17,6 +17,8 @@ pub struct App<G: Game> {
     pub(super) time: Time,
     pub(super) config: AppConfig,
     pub(super) state: AppState,
+    pub(super) crt_config: CrtConfig,
+    pub(super) exit: bool,
 }
 
 impl<G: Game> App<G> {
@@ -28,6 +30,8 @@ impl<G: Game> App<G> {
             time: Time::new(),
             config: AppConfig::default().icon(crate::globals::ICON_IRON_OXIDE),
             state: AppState::Uninitialized,
+            crt_config: CrtConfig::default(),
+            exit: false,
         }
     }
 
@@ -51,6 +55,16 @@ impl<G: Game> App<G> {
         self
     }
 
+    pub fn crt_frame(mut self, image_bytes: &'static [u8]) -> Self {
+        self.config.frame = Some(CrtFrame::from_bytes(image_bytes));
+        self
+    }
+
+    pub fn crt(mut self, config: CrtConfig) -> Self {
+        self.crt_config = config;
+        self
+    }
+
     pub fn run(mut self) {
         let event_loop = EventLoop::new().expect("Failed to create event loop");
         event_loop
@@ -68,6 +82,7 @@ impl<G: Game> App<G> {
             AppState::Uninitialized => return,
             AppState::Boot(boot) => {
                 boot.update(self.time.delta_seconds());
+
                 boot.render(renderer.framebuffer_mut());
                 renderer.render();
 
@@ -79,7 +94,10 @@ impl<G: Game> App<G> {
                 }
             }
             AppState::Running => {
-                self.game.update(&self.time, &self.input);
+                if self.game.update(&self.time, &self.input) == GameAction::Exit {
+                    self.exit = true;
+                    return;
+                }
                 self.game.render(renderer.framebuffer_mut());
                 renderer.render();
             }

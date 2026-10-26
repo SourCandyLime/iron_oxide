@@ -3,7 +3,7 @@ use crate::{
 };
 
 use super::{
-    Camera,
+    Camera3D,
     Triangle,
     Vertex
 };
@@ -41,7 +41,7 @@ impl Mesh {
 
     pub fn render(
         &self,
-        camera: &Camera,
+        camera: &Camera3D,
         canvas: &mut Canvas,
         texture: Option<&Texture>,
         screen_width: u32,

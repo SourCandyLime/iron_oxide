@@ -1,3 +1,3 @@
 mod camera;
 
-pub use camera::camera_debug_move;
+pub use camera::camera3D_debug_move;

@@ -1,5 +1,5 @@
 use super::{Vertex, Texture};
-use crate::{color::Color, render3d::Camera, canvas::Canvas};
+use crate::{color::Color, render3d::Camera3D, canvas::Canvas};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Triangle {
@@ -17,7 +17,7 @@ impl Triangle {
 
     pub fn render(
         &self,
-        camera: &Camera,
+        camera: &Camera3D,
         canvas: &mut Canvas,
         texture: Option<&Texture>,
         screen_width: u32,

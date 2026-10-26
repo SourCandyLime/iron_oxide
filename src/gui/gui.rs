@@ -6,6 +6,7 @@ use crate::{
     input::{
         Input,
     },
+    color::Color,
 };
 
 pub struct GUI {
@@ -19,8 +20,8 @@ impl GUI {
         }
     }
 
-    pub fn new_button(&mut self, x: i32, y: i32, width: u32, height: u32, text: String, id: String) {
-        self.widgets.push(Box::new(Button::new(x, y, width, height, text, id)));
+    pub fn new_button(&mut self, x: i32, y: i32, width: u32, height: u32, text: String, id: String, colors: &[Color]) {
+        self.widgets.push(Box::new(Button::new(x, y, width, height, text, id, colors)));
     }
 
     pub fn pressed(&mut self, id: &str) -> bool {

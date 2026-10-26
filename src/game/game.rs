@@ -5,6 +5,7 @@ use crate::{
     renderer::Framebuffer,
     time::Time,
     GameContext,
+    GameAction,
 };
 
 pub trait Game {
@@ -27,7 +28,7 @@ pub trait Game {
         &mut self,
         time: &Time,
         input: &Input,
-    ) {
+    ) -> GameAction {
         let action = {
             let (states, context) = self.state_data();
 
@@ -37,7 +38,7 @@ pub trait Game {
             }
         };
 
-        self.handle_state_action(action);
+        self.handle_state_action(action)
     }
 
     fn render(
@@ -66,21 +67,26 @@ pub trait Game {
     fn handle_state_action(
         &mut self,
         action: StateAction<Self::Context>,
-    ) {
+    ) -> GameAction {
         match action {
-            StateAction::None => {}
+            StateAction::None => GameAction::None,
 
             StateAction::Pop => {
                 self.pop_state();
+                GameAction::None
             }
 
             StateAction::Push(state) => {
                 self.push_boxed_state(state);
+                GameAction::None
             }
 
             StateAction::Replace(state) => {
                 self.replace_boxed_state(state);
+                GameAction::None
             }
+
+            StateAction::Exit => GameAction::Exit,
         }
     }
 

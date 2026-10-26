@@ -10,6 +10,9 @@ pub struct Button {
     id: String,
     text: String,
     color: u8,
+    color_normal: u8,
+    color_hover: u8,
+    color_down: u8,
 
     down: bool,
     pressed: bool,
@@ -21,7 +24,7 @@ pub struct Button {
 
 
 impl Widget for Button {
-    fn new(x: i32, y: i32, width: u32, height: u32, text: String, id: String) -> Button {
+    fn new(x: i32, y: i32, width: u32, height: u32, text: String, id: String, colors: &[u8]) -> Button {
         Self {
             x,
             y,
@@ -32,6 +35,9 @@ impl Widget for Button {
 
             text,
             color: 0,
+            color_normal: colors[0],
+            color_hover: colors[1],
+            color_down: colors[2],
 
             down: false,
             pressed: false,
@@ -51,9 +57,12 @@ impl Widget for Button {
             self.color,
         );
 
+        let text_x = (self.x as f32 + ((self.width / 2) as f32 - (((self.text.len() * 6) / 2) - 1) as f32)).floor() as i32;
+        let text_y = (self.y as f32 + ((self.height / 2) as f32 - (3.5))).floor() as i32;
+
         canvas.text(
-            self.x + 4,
-            self.y + 6,
+            text_x,
+            text_y,
             self.text.as_str(),
             color::BLACK,
         );
@@ -70,17 +79,17 @@ impl Widget for Button {
                 })
                 .unwrap_or(false);
 
-        self.down = input.mouse_down(MouseButton::Left) && (self.hover || self.down);
+        self.down = input.mouse_down(MouseButton::Left) && (self.hover);
         self.pressed = input.mouse_pressed(MouseButton::Left) && self.hover;
         self.released = input.mouse_released(MouseButton::Left) && self.down;
         self.clicked = input.mouse_released(MouseButton::Left) && self.hover;
 
         if self.down {
-            self.color = color::BLACK;
+            self.color = self.color_down;
         } else if self.hover {
-            self.color = color::GRAY;
+            self.color = self.color_hover;
         } else {
-            self.color = color::WHITE;
+            self.color = self.color_normal;
         }
     }
 

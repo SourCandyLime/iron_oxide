@@ -39,6 +39,11 @@ impl Time {
     }
 
     pub fn reset(&mut self) {
+        let now = Instant::now();
+
+        self.start_time = now;
+        self.last_frame = now;
+        self.delta_seconds = 0.0;
         self.elapsed_seconds = 0.0;
     }
 }

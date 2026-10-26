@@ -1,4 +1,4 @@
-use super::BootScreen;
+use super::{BootScreen, CrtFrame};
 use crate::globals::DEFAULT_WINDOW_TITLE;
 use std::path::Path;
 
@@ -38,6 +38,7 @@ pub struct AppConfig {
     pub title: String,
     pub icon: Option<AppIcon>,
     pub boot_screen: Option<BootScreen>,
+    pub frame: Option<CrtFrame>,
 }
 
 impl Default for AppConfig {
@@ -46,6 +47,7 @@ impl Default for AppConfig {
             title: DEFAULT_WINDOW_TITLE.to_string(),
             icon: None,
             boot_screen: None,
+            frame: None,
         }
     }
 }

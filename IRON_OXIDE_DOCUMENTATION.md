@@ -121,7 +121,7 @@ Game code should work with:
 
 - `Input`
 - `Canvas`
-- `Camera`
+- `Camera3D`
 - `Model`
 - `Game`
 - `GameState`

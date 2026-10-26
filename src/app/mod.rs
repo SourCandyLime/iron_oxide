@@ -5,11 +5,13 @@ mod app;
 mod boot;
 mod config;
 mod events;
+mod frame;
 mod window;
 
 pub use app::App;
 pub use boot::{BootScreen, BootState};
 pub use config::{AppConfig, AppIcon};
+pub use frame::{CrtFrame};
 
 #[cfg(test)]
 mod tests;

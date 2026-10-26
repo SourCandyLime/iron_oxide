@@ -1,8 +1,5 @@
 use super::AppConfig;
-use crate::{
-    globals::{FRAMEBUFFER_HEIGHT, FRAMEBUFFER_WIDTH},
-    renderer::Renderer,
-};
+use crate::{globals::{FRAMEBUFFER_HEIGHT, FRAMEBUFFER_WIDTH}, renderer::Renderer, CrtFrame, CRT_FRAME_BLANK_BYTES};
 use std::sync::Arc;
 use winit::{
     dpi::PhysicalSize,
@@ -32,11 +29,21 @@ impl AppWindow {
                 .create_window(attributes)
                 .expect("Failed to create window"),
         );
+        
+        
+        let mut frame= &CrtFrame::from_bytes(CRT_FRAME_BLANK_BYTES);
+        
+        if let Some(f) = &config.frame {
+            frame = config.frame.as_ref().unwrap();
+        }
+            
         let renderer = pollster::block_on(Renderer::new(
             handle.clone(),
             FRAMEBUFFER_WIDTH,
             FRAMEBUFFER_HEIGHT,
+            frame
         ));
+
         Self { handle, renderer }
     }
 
