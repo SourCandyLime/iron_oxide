@@ -13,24 +13,24 @@ pub trait GameState<Ctx: GameContext> {
     where
         Self: Sized;
 
-    fn start(&mut self, ctx: &mut Ctx) {}
+    fn start(&mut self, _ctx: &mut Ctx) {}
 
     fn update(
         &mut self,
-        ctx: &mut Ctx,
-        time: &Time,
-        input: &Input,
+        _ctx: &mut Ctx,
+        _time: &Time,
+        _input: &Input,
     ) -> StateAction<Ctx> {
         StateAction::None
     }
 
     fn render(
         &mut self,
-        ctx: &mut Ctx,
-        canvas: &mut Canvas,
+        _ctx: &mut Ctx,
+        _canvas: &mut Canvas,
     ) {}
 
-    fn end(&mut self, ctx: &mut Ctx) {}
+    fn end(&mut self, _ctx: &mut Ctx) {}
 
     fn render_below(&self) -> bool {
         false

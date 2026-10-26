@@ -33,7 +33,7 @@ impl AppWindow {
         
         let mut frame= &CrtFrame::from_bytes(CRT_FRAME_BLANK_BYTES);
         
-        if let Some(f) = &config.frame {
+        if let Some(_f) = &config.frame {
             frame = config.frame.as_ref().unwrap();
         }
             

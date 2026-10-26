@@ -35,20 +35,6 @@ pub fn to_model(raw: &RawPcad2) -> Model {
     }
 }
 
-pub fn to_meshes(raw: &RawPcad2) -> Vec<Mesh> {
-    let palette = convert_palette(&raw.texture.colors);
-
-    let mut meshes = Vec::new();
-
-    convert_node(
-        &raw.graph,
-        &palette,
-        &mut meshes,
-    );
-
-    meshes
-}
-
 fn convert_node(
     node: &RawNode,
     palette: &[Color],
@@ -206,7 +192,7 @@ fn convert_face(
                 vertices[i + 1],
             ],
 
-            color: color,
+            color,
         });
     }
 }

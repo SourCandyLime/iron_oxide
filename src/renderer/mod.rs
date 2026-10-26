@@ -1,5 +1,10 @@
-mod renderer;
+mod crt;
+mod cursor;
+mod frame;
 mod framebuffer;
+mod renderer;
+mod viewport;
 
-pub use renderer::{Renderer, CrtConfig};
+pub use crt::CrtConfig;
 pub use framebuffer::Framebuffer;
+pub use renderer::Renderer;

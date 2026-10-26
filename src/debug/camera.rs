@@ -6,7 +6,7 @@ use crate::{
     time::{Time},
 };
 
-pub fn camera3D_debug_move(
+pub fn camera3d_debug_move(
     camera: &mut Camera3D,
     input: &Input,
     time: &Time,
@@ -96,7 +96,7 @@ pub fn camera3D_debug_move(
     camera.rotation = camera.rotation.normalized();
 }
 
-pub fn camera2D_debug_move(camera: &mut Camera2D, input: &Input, time: &Time) {
+pub fn camera2d_debug_move(camera: &mut Camera2D, input: &Input, time: &Time) {
     let move_speed = 5.0 * time.delta_seconds();
     let rotate_speed = 2.0 * time.delta_seconds();
 
@@ -118,12 +118,18 @@ pub fn camera2D_debug_move(camera: &mut Camera2D, input: &Input, time: &Time) {
         movement.y -= 1.0;
     }
 
+    if input.key_down(Key::E) {
+        rotation += 1.0;
+    }
+    if input.key_down(Key::Q) {
+        rotation -= 1.0;
+    }
+
 
     if movement.length_squared() > 0.0 {
         movement = movement.normalized();
     }
 
-
     camera.set_position(camera.position() + movement * move_speed);
-
+    camera.set_rotation(camera.rotation() + rotation * rotate_speed);
 }

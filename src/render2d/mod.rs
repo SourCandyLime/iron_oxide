@@ -1,3 +1,3 @@
-mod camera2D;
+mod camera2d;
 
-pub use camera2D::*;
+pub use camera2d::*;

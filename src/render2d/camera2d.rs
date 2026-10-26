@@ -1,4 +1,3 @@
-use std::ops::Rem;
 use crate::{math::{Vec2}, FRAMEBUFFER_CENTER};
 
 pub struct Camera2D {
@@ -33,7 +32,7 @@ impl Camera2D {
     pub fn screen_to_world(&self, position: Vec2) -> Vec2 {
         let mut result = position - FRAMEBUFFER_CENTER;
 
-        let (sin, cos) = (self.rotation).sin_cos();
+        let (sin, cos) = self.rotation.sin_cos();
 
         let x = result.x * cos - result.y * sin;
         let y = result.x * sin + result.y * cos;

@@ -8,8 +8,8 @@ pub trait Widget {
     where Self: Sized;
 
     fn id(&self) -> &String;
-    fn update(&mut self, input: &Input) {}
-    fn draw(&self, canvas: &mut Canvas) {}
+    fn update(&mut self, _input: &Input) {}
+    fn draw(&self, _canvas: &mut Canvas) {}
 
     fn interactable(&self) -> bool { false }
 

@@ -25,10 +25,6 @@ impl Model {
             texture,
         }
     }
-
-    pub fn BLANK() -> Self {
-        Self::new(Vec::new(), None)
-    }
  
     pub fn local_pos_to_world_pos(&self, pos: Vec3) -> Vec3 {
         self.rotation.rotate_vec3(pos) + self.position
@@ -59,5 +55,11 @@ impl Model {
                 screen_height,
             );
         }
+    }
+}
+
+impl Default for Model {
+    fn default() -> Self {
+        Self::new(Vec::new(), None)
     }
 }
